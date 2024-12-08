@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Req.</title>
+  </head>
+  <body style="background-color: #414141">
+    <button id="btn">Click Here To Find Soumen's Github Followers Count</button>
+  </body>
+  <script>
+    const requrl = "https://api.github.com/users/avid-09";
+    const xhr = new XMLHttpRequest();
+    let photo;
+    let follo;
+    xhr.open("GET", requrl);
+    xhr.onreadystatechange = function () {
+      console.log(xhr.readyState);
+      if (xhr.readyState === 4) {
+        const data = JSON.parse(this.responseText);
+        console.log(data.followers);
+        photo = data.avatar_url;
+        follo = data.followers;
+      }
+    };
+
+    const btn = document.getElementById("btn");
+    btn.addEventListener("click", function (e) {
+      const div = document.createElement("div");
+      div.style.backgroundColor = "#f09999";
+      const div2 = document.createElement("div");
+      const div3 = document.createElement("div");
+      const div4 = document.createElement("img");
+      div4.style.width = "60%";
+      div4.setAttribute("src", photo);
+      console.log(div4);
+
+      // div.style.backgroundColor = "white";
+      div.style.padding = "10px";
+      div2.appendChild(div4);
+      div3.innerText = `Followers is = ${follo}`;
+
+      div.appendChild(div2);
+      div.appendChild(div3);
+      console.log(div.innerHTML);
+      console.log(div2);
+      document.body.appendChild(div);
+
+      div.style.margin = "auto";
+      div.style.width = "10%";
+      div.style.display = "block";
+      div.style.textAlign = "center";
+      // console.log(btn);
+    });
+
+    // console.log(`photo = ${photo} , followers = ${follo}`);
+    xhr.send();
+  </script>
+</html>
